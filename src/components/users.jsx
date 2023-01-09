@@ -4,39 +4,6 @@ import api from '../api';
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
 
-  const createName = () =>
-    users.map((user) => <td key={user._id}>{user.name}</td>);
-
-  let newArray = [];
-  // user.qualities.forEach((elem) => console.log(elem))
-  let qualitiesId = 0;
-
-  const createRow = () =>
-    users.map((user) =>
-      user.qualities.map((quality) => (
-        <tr>
-          <td key={user._id}>{user.name}</td>
-          <td key={qualitiesId + 1}>
-            <div className={'badge bg-' + quality.color}>{quality.name}</div>
-          </td>
-          <td key={user.profession._id}>{user.profession.name}</td>
-          <td key={user.completedMeetings}>{user.completedMeetings}</td>
-          <td key={user.rate}>{user.rate}/5</td>
-          <td>
-            <button className="btn btn-danger">delete</button>
-          </td>
-        </tr>
-      ))
-    );
-  // неправильно перебирается, изначально качества идут сплошным списком, а не отдельными массивами
-
-  // const createQualities = () =>
-  //   users.map((user) => {
-  //     user.qualities.map((quality) => {
-  //       <td key={quality._id}>{quality.name}</td>;
-  //     });
-  //   });
-
   return (
     <>
       <h2>
@@ -47,28 +14,47 @@ const Users = () => {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Имя</th>
-            <th scope="col">Качества</th>
-            <th scope="col">Профессия</th>
-            <th scope="col">Встретился, раз</th>
-            <th scope="col">Оценка</th>
-            <th scope="col"></th>
+            <th>Имя</th>
+            <th>Качества</th>
+            <th>Профессия</th>
+            <th>Встретился, раз</th>
+            <th>Оценка</th>
+            <th></th>
           </tr>
         </thead>
-        <tbody>{createRow()}</tbody>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user._id}>
+              <td>{user.name}</td>
+              <td>
+                {user.qualities.map((quality) => (
+                  <span
+                    key={quality._id}
+                    className={'badge m-1 bg-' + quality.color}
+                  >
+                    {quality.name}
+                  </span>
+                ))}
+              </td>
+              <td>{user.profession.name}</td>
+              <td>{user.completedMeetings}</td>
+              <td>{user.rate}/5</td>
+              <td>
+                <button className="btn btn-danger">delete</button>
+                {/* onclick = {handleDelete(user._id)} */}
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </>
   );
 
   // код с видео
 
-  // const hadleDelete = (userId) => {
+  const handleDelete = (userId) => {}; // setUsers и userId (в котором лежит user._id) удалять пользователя из массива
+  // const renderPhrase = (number) => {// для количества юзеров (вывод сверху количества, потом динамически менять на надпись "никто не хочешь тусить с тобой");
   // };
-  // const renderPhrase = (number) => {// для количества юзеров;;
-  // };
-  // return (
-  //     <></>
-  // );
 };
 
 export default Users;
