@@ -4,12 +4,27 @@ import api from '../api';
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
 
+  const handleDelete = (userId) => {
+    setUsers((prevState) => prevState.filter((user) => user._id !== userId));
+  };
+  const renderPhrase = (number) => {
+    return number > 4 || number === 1
+      ? number + ' человек тусанет с тобой сегодня'
+      : number + ' человека тусанут с тобой сегодня';
+  };
+
+  if (users.length === 0) {
+    return (
+      <h2>
+        <div className="badge bg-danger">Никто с тобой не тусанет</div>
+      </h2>
+    );
+  }
+
   return (
     <>
       <h2>
-        <span className="badge bg-primary">
-          <span className="bg-danger">n</span> человек тусит с тобой
-        </span>
+        <span className="badge bg-primary">{renderPhrase(users.length)}</span>
       </h2>
       <table className="table">
         <thead>
@@ -40,8 +55,12 @@ const Users = () => {
               <td>{user.completedMeetings}</td>
               <td>{user.rate}/5</td>
               <td>
-                <button className="btn btn-danger">delete</button>
-                {/* onclick = {handleDelete(user._id)} */}
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(user._id)}
+                >
+                  delete
+                </button>
               </td>
             </tr>
           ))}
@@ -49,12 +68,6 @@ const Users = () => {
       </table>
     </>
   );
-
-  // код с видео
-
-  const handleDelete = (userId) => {}; // setUsers и userId (в котором лежит user._id) удалять пользователя из массива
-  // const renderPhrase = (number) => {// для количества юзеров (вывод сверху количества, потом динамически менять на надпись "никто не хочешь тусить с тобой");
-  // };
 };
 
 export default Users;
