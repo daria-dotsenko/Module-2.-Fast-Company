@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { paginate } from "../utils/paginate";
 import Pagination from "./pagination";
 import User from "./user";
-import api from "../api";
+import api from "../api/index";
 import PropTypes from "prop-types";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
@@ -32,6 +32,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     const clearFilter = () => {
         setSelectedProf();
     };
+
     return (
         <div className="d-flex">
             {professions && (
@@ -85,6 +86,7 @@ const Users = ({ users: allUsers, ...rest }) => {
 };
 Users.propTypes = {
     users: PropTypes.array.isRequired
+    // allUsers: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 export default Users;
