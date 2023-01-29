@@ -15,9 +15,9 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
 
     const createCaret = (item, order) => {
         if (selectedSort.path === item && order === "asc") {
-            return "bi-caret-up-fill";
-        } else if (selectedSort.path === item && order === "desc") {
             return "bi-caret-down-fill";
+        } else if (selectedSort.path === item && order === "desc") {
+            return "bi-caret-up-fill";
         } else {
             return "";
         }
@@ -42,9 +42,9 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                             className={`'m-2 bi ${
                                 columns[column].path
                                     ? createCaret(
-                                        columns[column].path,
-                                        selectedSort.order
-                                    )
+                                          columns[column].path,
+                                          selectedSort.order
+                                      )
                                     : undefined
                             }`}
                         ></i>
