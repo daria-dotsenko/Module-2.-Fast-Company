@@ -42,9 +42,9 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                             className={`'m-2 bi ${
                                 columns[column].path
                                     ? createCaret(
-                                          columns[column].path,
-                                          selectedSort.order
-                                      )
+                                        columns[column].path,
+                                        selectedSort.order
+                                    )
                                     : undefined
                             }`}
                         ></i>
