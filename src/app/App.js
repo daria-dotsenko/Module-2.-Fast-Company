@@ -10,13 +10,12 @@ function App() {
         <div>
             <NavBar />
             <Switch>
+                <Route path="/" exact component={MainPage} />
                 <Route path="/login" component={Login} />
-                <Route path="/users" component={Users} />
-                <Route path="/" component={MainPage} />
+                <Route path="/users/:userId?" component={Users} />
             </Switch>
         </div>
     );
-    // <Users />
 }
 
 export default App;

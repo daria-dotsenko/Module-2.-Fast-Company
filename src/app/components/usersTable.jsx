@@ -3,17 +3,21 @@ import PropTypes from "prop-types";
 import BookMark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
+import UserName from "./userName";
 
 const UserTable = ({
     users,
     onSort,
     selectedSort,
     onToggleBookMark,
-    onDelete,
-    ...rest
+    onDelete
 }) => {
     const columns = {
-        name: { path: "name", name: "Имя" },
+        name: {
+            path: "name",
+            name: "Имя",
+            component: (user) => <UserName name={user.name} id={user._id} />
+        },
         qualities: {
             name: "Качество",
             component: (user) => <QualitiesList qualities={user.qualities} />
