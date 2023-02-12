@@ -16,7 +16,8 @@ const Login = () => {
         email: {
             isRequared: {
                 message: "Электронная почта обязательна для заполнения"
-            }
+            },
+            isEmail: { message: "email введен некорректно" }
         },
         password: {
             isRequared: {
