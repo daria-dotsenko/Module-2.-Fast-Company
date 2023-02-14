@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import BookMark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
-// import UserName from "./userName";
 import { Link } from "react-router-dom";
 
 const UserTable = ({

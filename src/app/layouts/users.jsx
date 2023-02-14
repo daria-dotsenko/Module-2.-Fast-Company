@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import UserPage from "../components/userPage";
 import UsersList from "../components/usersList";
 import { useParams } from "react-router-dom";
-/* eslint-disable */
 
 const Users = () => {
     const [users, setUsers] = useState();
@@ -29,15 +28,17 @@ const Users = () => {
 
     return (
         <>
-            {userId ? (
-                <UserPage id={userId} />
-            ) : (
-                <UsersList
-                    users={users}
-                    handleDelete={handleDelete}
-                    handleToggleBookMark={handleToggleBookMark}
-                />
-            )}
+            {userId
+                ? (
+                    <UserPage id={userId} />
+                )
+                : (
+                    <UsersList
+                        users={users}
+                        handleDelete={handleDelete}
+                        handleToggleBookMark={handleToggleBookMark}
+                    />
+                )}
         </>
     );
 };

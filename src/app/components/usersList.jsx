@@ -7,11 +7,13 @@ import UserTable from "../components/usersTable";
 import api from "../api/index";
 import _ from "lodash";
 import PropTypes from "prop-types";
+import Search from "./search";
 
 const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
+    const [searchValue, setSearchValue] = useState("");
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 8;
 
@@ -31,10 +33,17 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
         setSortBy(item);
     };
 
+    const handleUserSearch = (targetValue) => {
+        setSearchValue(targetValue);
+    };
+
     if (users) {
-        const filteredUsers = selectedProf
+        let filteredUsers = selectedProf
             ? users.filter((user) => _.isEqual(user.profession, selectedProf))
             : users;
+        if (searchValue) {
+            filteredUsers = users.filter((user) => user.name.includes(searchValue));
+        }
         const sortedUsers = _.orderBy(
             filteredUsers,
             [sortBy.path],
@@ -65,6 +74,7 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <Search searchValue={searchValue} setSearchValue={handleUserSearch}/>
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
@@ -87,13 +97,6 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
         );
     }
     return "loading...";
-    // return (
-    //     <>
-    //         {users.map((user) => (
-    //             <h3 key={user._id}>{user.profession}</h3>
-    //         ))}
-    //     </>
-    // );
 };
 
 UsersList.propTypes = {
