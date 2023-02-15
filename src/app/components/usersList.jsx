@@ -23,6 +23,9 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf]);
+    useEffect(() => {
+        setSearchValue("");
+    }, [selectedProf]);
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
     };
@@ -42,7 +45,7 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
             ? users.filter((user) => _.isEqual(user.profession, selectedProf))
             : users;
         if (searchValue) {
-            filteredUsers = users.filter((user) => user.name.includes(searchValue));
+            filteredUsers = users.filter((user) => user.name.toLowerCase().includes(searchValue.toLowerCase()));
         }
         const sortedUsers = _.orderBy(
             filteredUsers,
@@ -62,6 +65,7 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
                         <GroupList
                             selectedItem={selectedProf}
                             items={professions}
+                            searchValue={searchValue}
                             onItemSelect={handleProfessionSelect}
                         />
                         <button
