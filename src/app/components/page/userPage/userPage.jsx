@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import api from "../api/index";
+import api from "../../../api";
 import { useHistory } from "react-router-dom";
 
 const UserPage = ({ id }) => {

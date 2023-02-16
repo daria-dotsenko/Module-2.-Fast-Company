@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { paginate } from "../utils/paginate";
-import Pagination from "../components/pagination";
-import GroupList from "../components/groupList";
-import SearchStatus from "../components/searchStatus";
-import UserTable from "../components/usersTable";
-import api from "../api/index";
+import { paginate } from "../../../utils/paginate";
+import Pagination from "../../common/pagination";
+import GroupList from "../../common/groupList";
+import SearchStatus from "../../ui/searchStatus";
+import UserTable from "../../ui/usersTable";
+import api from "../../../api";
 import _ from "lodash";
 import PropTypes from "prop-types";
-import Search from "./search";
+import Search from "../../search";
 
-const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
+const UsersListPage = ({ users, handleDelete, handleToggleBookMark }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -22,7 +22,7 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
     }, []);
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchValue]);
     useEffect(() => {
         setSearchValue("");
     }, [selectedProf]);
@@ -41,12 +41,11 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
     };
 
     if (users) {
-        let filteredUsers = selectedProf
-            ? users.filter((user) => _.isEqual(user.profession, selectedProf))
-            : users;
-        if (searchValue) {
-            filteredUsers = users.filter((user) => user.name.toLowerCase().includes(searchValue.toLowerCase()));
-        }
+        const filteredUsers = searchValue
+            ? users.filter((user) => user.name.toLowerCase().includes(searchValue.toLowerCase()))
+            : selectedProf
+                ? users.filter((user) => _.isEqual(user.profession, selectedProf))
+                : users;
         const sortedUsers = _.orderBy(
             filteredUsers,
             [sortBy.path],
@@ -103,10 +102,10 @@ const UsersList = ({ users, handleDelete, handleToggleBookMark }) => {
     return "loading...";
 };
 
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array,
     handleDelete: PropTypes.func,
     handleToggleBookMark: PropTypes.func
 };
 
-export default UsersList;
+export default UsersListPage;

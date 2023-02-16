@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/index";
 import PropTypes from "prop-types";
-import UserPage from "../components/userPage";
-import UsersList from "../components/usersList";
+import UserPage from "../components/page/userPage";
+import UsersListPage from "../components/page/usersListPage";
 import { useParams } from "react-router-dom";
 
 const Users = () => {
@@ -33,7 +33,7 @@ const Users = () => {
                     <UserPage id={userId} />
                 )
                 : (
-                    <UsersList
+                    <UsersListPage
                         users={users}
                         handleDelete={handleDelete}
                         handleToggleBookMark={handleToggleBookMark}
