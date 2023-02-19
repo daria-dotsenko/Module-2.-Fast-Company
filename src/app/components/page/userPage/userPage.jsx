@@ -7,7 +7,7 @@ const UserPage = ({ id }) => {
     const [user, setUser] = useState();
     useEffect(() => {
         api.users.getById(id).then((data) => setUser(data));
-    });
+    }, []);
 
     const history = useHistory();
     const handleSave = () => {
