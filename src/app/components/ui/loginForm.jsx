@@ -15,13 +15,13 @@ const LoginForm = () => {
 
     const validatorConfig = {
         email: {
-            isRequared: {
+            isRequired: {
                 message: "Электронная почта обязательна для заполнения"
             },
             isEmail: { message: "Электронная почта введена некорректно" }
         },
         password: {
-            isRequared: {
+            isRequired: {
                 message: "Пароль обязателен для заполнения"
             },
             isCapitalSymbol: { message: "Пароль должен содержать хотя бы одну заглавную букву" },

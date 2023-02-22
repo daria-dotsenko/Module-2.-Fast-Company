@@ -16,13 +16,26 @@ const RegisterForm = () => {
         qualities: [],
         licence: false
     });
-    const [qualities, setQualities] = useState({});
+    const [qualities, setQualities] = useState([]);
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState();
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
-        api.qualities.fetchAll().then((data) => setQualities(data));
+        api.professions.fetchAll().then((data) => {
+            const professionsList = Object.keys(data).map((professionName) => ({
+                label: data[professionName].name,
+                value: data[professionName]._id
+            }));
+            setProfessions(professionsList);
+        });
+        api.qualities.fetchAll().then((data) => {
+            const qualitiesList = Object.keys(data).map((optionName) => ({
+                label: data[optionName].name,
+                value: data[optionName]._id,
+                color: data[optionName].color
+            }));
+            setQualities(qualitiesList);
+        });
     }, []);
 
     const handleChange = (target) => {
@@ -34,13 +47,13 @@ const RegisterForm = () => {
 
     const validatorConfig = {
         email: {
-            isRequared: {
+            isRequired: {
                 message: "Электронная почта обязательна для заполнения"
             },
             isEmail: { message: "Электронная почта введена некорректно" }
         },
         password: {
-            isRequared: {
+            isRequired: {
                 message: "Пароль обязателен для заполнения"
             },
             isCapitalSymbol: { message: "Пароль должен содержать хотя бы одну заглавную букву" },
@@ -48,10 +61,10 @@ const RegisterForm = () => {
             min: { message: "Пароль должен состоять минимум из восьми символов", value: 8 }
         },
         profession: {
-            isRequared: { message: "Обязательно выберите вашу профессию" }
+            isRequired: { message: "Обязательно выберите вашу профессию" }
         },
         licence: {
-            isRequared: { message: "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения" }
+            isRequired: { message: "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения" }
         }
     };
 
@@ -67,15 +80,43 @@ const RegisterForm = () => {
 
     const isValid = Object.keys(errors).length === 0;
 
-    const handeSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        console.log(data);
+        const { profession, qualities } = data;
+        console.log({
+            ...data,
+            profession: getProfessionById(profession),
+            qualities: getQualities(qualities)
+        });
+    };
+
+    const getProfessionById = (id) => {
+        for (const prof of professions) {
+            if (prof.value === id) {
+                return { _id: prof.value, name: prof.label };
+            }
+        }
+    };
+    const getQualities = (elements) => {
+        const qualitiesArray = [];
+        for (const elem of elements) {
+            for (const quality in qualities) {
+                if (elem.value === qualities[quality].value) {
+                    qualitiesArray.push({
+                        _id: qualities[quality].value,
+                        name: qualities[quality].label,
+                        color: qualities[quality].color
+                    });
+                }
+            }
+        }
+        return qualitiesArray;
     };
 
     return (
-        <form onSubmit={handeSubmit}>
+        <form onSubmit={handleSubmit}>
             <TextField
                 label="Email"
                 type="text"

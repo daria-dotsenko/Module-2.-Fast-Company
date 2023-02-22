@@ -7,18 +7,20 @@ import UserTable from "../../ui/usersTable";
 import api from "../../../api";
 import _ from "lodash";
 import PropTypes from "prop-types";
-import Search from "../../search";
+import Search from "../../ui/qualities/search";
 
-const UsersListPage = ({ users, handleDelete, handleToggleBookMark }) => {
+const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [searchValue, setSearchValue] = useState("");
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+    const [users, setUsers] = useState();
     const pageSize = 8;
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
+        api.users.fetchAll().then((data) => setUsers(data));
     }, []);
     useEffect(() => {
         setCurrentPage(1);
@@ -38,6 +40,18 @@ const UsersListPage = ({ users, handleDelete, handleToggleBookMark }) => {
 
     const handleUserSearch = (targetValue) => {
         setSearchValue(targetValue);
+    };
+
+    const handleDelete = (id) => {
+        setUsers((prevState) => prevState.filter((user) => user._id !== id));
+    };
+
+    const handleToggleBookMark = (id) => {
+        setUsers((prevState) =>
+            prevState.map((user) =>
+                user._id === id ? { ...user, bookmark: !user.bookmark } : user
+            )
+        );
     };
 
     if (users) {

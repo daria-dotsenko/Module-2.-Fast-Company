@@ -10,10 +10,7 @@ const SelectField = ({ label, value, onChange, defaultOption, options, error, na
     };
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map(optionName => ({
-                name: options[optionName].name,
-                value: options[optionName]._id
-            }))
+            ? Object.values(options)
             : options;
     return (<div className="mb-4">
         <label htmlFor={name} className="form-label">{label}</label>
@@ -28,7 +25,7 @@ const SelectField = ({ label, value, onChange, defaultOption, options, error, na
                 <option
                     value={option.value}
                     key={option.value}>
-                    {option.name}
+                    {option.label}
                 </option>
             )}
         </select>
