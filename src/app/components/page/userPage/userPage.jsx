@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import api from "../api/index";
+import api from "../../../api";
 import { useHistory } from "react-router-dom";
 
 const UserPage = ({ id }) => {
     const [user, setUser] = useState();
     useEffect(() => {
         api.users.getById(id).then((data) => setUser(data));
-    });
+    }, []);
 
     const history = useHistory();
     const handleSave = () => {
-        history.push("/users");
+        history.push(`/users/${id}/edit`);
     };
 
     if (user) {
@@ -34,7 +34,7 @@ const UserPage = ({ id }) => {
                         handleSave();
                     }}
                 >
-                    Все пользователи
+                    Изменить
                 </button>
             </>
         );
