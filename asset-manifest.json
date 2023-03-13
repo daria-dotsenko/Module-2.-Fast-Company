@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/fast-company/static/css/main.345ec4e7.css",
-    "main.js": "/fast-company/static/js/main.94e6cdba.js",
-    "static/js/787.4d212c3f.chunk.js": "/fast-company/static/js/787.4d212c3f.chunk.js",
-    "index.html": "/fast-company/index.html",
-    "main.345ec4e7.css.map": "/fast-company/static/css/main.345ec4e7.css.map",
-    "main.94e6cdba.js.map": "/fast-company/static/js/main.94e6cdba.js.map",
-    "787.4d212c3f.chunk.js.map": "/fast-company/static/js/787.4d212c3f.chunk.js.map"
+    "main.css": "/Module-2.-Fast-Company/static/css/main.345ec4e7.css",
+    "main.js": "/Module-2.-Fast-Company/static/js/main.25edf847.js",
+    "static/js/787.4d212c3f.chunk.js": "/Module-2.-Fast-Company/static/js/787.4d212c3f.chunk.js",
+    "index.html": "/Module-2.-Fast-Company/index.html",
+    "main.345ec4e7.css.map": "/Module-2.-Fast-Company/static/css/main.345ec4e7.css.map",
+    "main.25edf847.js.map": "/Module-2.-Fast-Company/static/js/main.25edf847.js.map",
+    "787.4d212c3f.chunk.js.map": "/Module-2.-Fast-Company/static/js/787.4d212c3f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.345ec4e7.css",
-    "static/js/main.94e6cdba.js"
+    "static/js/main.25edf847.js"
   ]
 }
