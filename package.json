@@ -1,6 +1,7 @@
 {
     "name": "fast-company",
-    "version": "0.1.0",
+    "version": "0.0.1",
+    "homepage": "https://daria-dotsenko.github.io/fast-company",
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
@@ -23,7 +24,9 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "format": "npx prettier --write ."
+        "format": "npx prettier --write .",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [
@@ -49,6 +52,7 @@
         "eslint-plugin-import": "^2.27.4",
         "eslint-plugin-n": "^15.6.1",
         "eslint-plugin-promise": "^6.1.1",
-        "eslint-plugin-react": "^7.32.0"
+        "eslint-plugin-react": "^7.32.0",
+        "gh-pages": "^5.0.0"
     }
 }
