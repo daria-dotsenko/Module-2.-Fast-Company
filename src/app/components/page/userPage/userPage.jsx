@@ -7,6 +7,10 @@ import Comments from "./Comments/comments";
 import NewComment from "./Comments/newComment";
 
 const UserPage = ({ id }) => {
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+    }, []);
     const [user, setUser] = useState();
     useEffect(() => {
         api.users.getById(id).then((data) => setUser(data));
@@ -17,15 +21,15 @@ const UserPage = ({ id }) => {
         history.push(`/users/${id}/edit`);
     };
 
-    if (user) {
+    if (user && users) {
         return (
             <>
                 <div className="container">
                     <div className="row gutters-sm">
                         <UserInfo user={user} handleSave={handleSave}/>
                         <div className="col-md-8">
-                            <Comments/>
                             <NewComment/>
+                            <Comments userId={id}/>
                         </div>
                     </div>
                 </div>
