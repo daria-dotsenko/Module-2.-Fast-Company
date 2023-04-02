@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../../../api";
 import { useHistory } from "react-router-dom";
+import UserInfo from "./userComponents/userInfo";
+import Comments from "./Comments/comments";
+import NewComment from "./Comments/newComment";
 
 const UserPage = ({ id }) => {
     const [user, setUser] = useState();
@@ -17,25 +20,15 @@ const UserPage = ({ id }) => {
     if (user) {
         return (
             <>
-                <h1>{user.name}</h1>
-                <h2>Профессия: {user.profession.name}</h2>
-                {user.qualities.map((quality) => (
-                    <div
-                        key={quality._id}
-                        className={`m-2 badge bg-${quality.color}`}
-                    >
-                        {quality.name}
+                <div className="container">
+                    <div className="row gutters-sm">
+                        <UserInfo user={user} handleSave={handleSave}/>
+                        <div className="col-md-8">
+                            <Comments/>
+                            <NewComment/>
+                        </div>
                     </div>
-                ))}
-                <div>completedMeetings: {user.completedMeetings}</div>
-                <h2>Rate: {user.rate}</h2>
-                <button
-                    onClick={() => {
-                        handleSave();
-                    }}
-                >
-                    Изменить
-                </button>
+                </div>
             </>
         );
     }
