@@ -7,26 +7,35 @@ import Comments from "./Comments/comments";
 import NewComment from "./Comments/newComment";
 
 const UserPage = ({ id }) => {
-    const [users, setUsers] = useState();
-    useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data));
-    }, []);
     const [user, setUser] = useState();
     useEffect(() => {
         api.users.getById(id).then((data) => setUser(data));
     }, []);
+    // console.log(user);
 
     const history = useHistory();
     const handleSave = () => {
         history.push(`/users/${id}/edit`);
     };
 
-    if (user && users) {
+    const handleRate = (act) => {
+        // console.log(act);
+        const currentRate = Number(user.rate);
+        const newRate = act !== undefined ? act === "add" ? currentRate + 0.1 : currentRate - 0.1 : null;
+        // console.log("newRate", newRate);
+        if (newRate) {
+            const updatedUser = { ...user, rate: newRate.toFixed(1) };
+            api.users.update(id, updatedUser)
+                .then(() => setUser(updatedUser));
+        }
+    };
+
+    if (user) {
         return (
             <>
                 <div className="container">
                     <div className="row gutters-sm">
-                        <UserInfo user={user} handleSave={handleSave}/>
+                        <UserInfo user={user} handleSave={handleSave} handleRate={handleRate}/>
                         <div className="col-md-8">
                             <NewComment/>
                             <Comments userId={id}/>

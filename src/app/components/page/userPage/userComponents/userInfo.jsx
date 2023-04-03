@@ -4,7 +4,14 @@ import UserQuality from "./userQuality";
 import UserMeetings from "./userMeetings";
 import PropTypes from "prop-types";
 
-const UserInfo = ({ user, handleSave }) => {
+const UserInfo = ({ user, handleSave, handleRate }) => {
+    const handleAddRate = () => {
+        handleRate("add");
+    };
+
+    const handleTakeRate = () => {
+        handleRate("take");
+    };
     return <>
         <div className="col-md-4 mb-3">
             <div className="card mb-3">
@@ -33,14 +40,14 @@ const UserInfo = ({ user, handleSave }) => {
                                 <h4>{user.name}</h4>
                                 <p className="text-secondary mb-1">{user.profession.name}</p>
                                 <div className="text-muted">
-                                    <i
+                                    <i onClick={handleTakeRate}
                                         className="
                                                 bi bi-caret-down-fill
                                                 text-primary
                                             "
                                         role="button"
                                     ></i>
-                                    <i
+                                    <i onClick={handleAddRate}
                                         className="
                                                 bi bi-caret-up
                                                 text-secondary
@@ -62,7 +69,8 @@ const UserInfo = ({ user, handleSave }) => {
 
 UserInfo.propTypes = {
     user: PropTypes.object.isRequired,
-    handleSave: PropTypes.func.isRequired
+    handleSave: PropTypes.func.isRequired,
+    handleRate: PropTypes.func.isRequired
 };
 
 export default UserInfo;
