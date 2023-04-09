@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import QualitiesList from "../../../ui/qualities";
 
-const UserQuality = ({ user }) => {
+const UserQuality = ({ qualities }) => {
     return <>
         <div className="card mb-3">
             <div className="card-body">
@@ -17,16 +18,9 @@ const UserQuality = ({ user }) => {
                     <h5 className="card-title">
                         <span>Qualities</span>
                     </h5>
-                    {user.qualities.map((quality) => (
-                        <p key={quality._id} className="card-text">
-                            <span
-                                key={quality._id}
-                                className={`badge bg-${quality.color}`}
-                            >
-                                {quality.name}
-                            </span>
-                        </p>
-                    ))}
+                    <p className="card-text">
+                        <QualitiesList qualities={qualities}/>
+                    </p>
                 </div>
             </div>
         </div>
@@ -34,7 +28,7 @@ const UserQuality = ({ user }) => {
 };
 
 UserQuality.propTypes = {
-    user: PropTypes.object.isRequired
+    qualities: PropTypes.array.isRequired
 };
 
 export default UserQuality;

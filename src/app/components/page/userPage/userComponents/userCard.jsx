@@ -3,8 +3,13 @@ import UserImage from "./userImage";
 import UserQuality from "./userQuality";
 import UserMeetings from "./userMeetings";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
-const UserInfo = ({ user, handleSave, handleRate }) => {
+const UserCard = ({ user, handleRate }) => {
+    const history = useHistory();
+    const handleSave = () => {
+        history.push(`/users/${user._id}/edit`);
+    };
     const handleAddRate = () => {
         handleRate("add");
     };
@@ -61,16 +66,15 @@ const UserInfo = ({ user, handleSave, handleRate }) => {
                     </div>
                 </div>
             </div>
-            <UserQuality user={user}/>
-            <UserMeetings user={user}/>
+            <UserQuality qualities={user.qualities}/>
+            <UserMeetings completedMeetings={user.completedMeetings}/>
         </div>
     </>;
 };
 
-UserInfo.propTypes = {
+UserCard.propTypes = {
     user: PropTypes.object.isRequired,
-    handleSave: PropTypes.func.isRequired,
     handleRate: PropTypes.func.isRequired
 };
 
-export default UserInfo;
+export default UserCard;
