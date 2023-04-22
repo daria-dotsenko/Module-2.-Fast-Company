@@ -7,8 +7,9 @@ const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
         !Array.isArray(options) && typeof options === "object"
             ? Object.values(options)
             : options;
+
     const handleChange = (value) => {
-        onChange({ name, value });
+        onChange({ name: name, value });
     };
     return (
         <div className="mb-4">
@@ -26,10 +27,9 @@ const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
         </div>
     );
 };
-
 MultiSelectField.propTypes = {
-    onChange: PropTypes.func,
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    onChange: PropTypes.func,
     name: PropTypes.string,
     label: PropTypes.string,
     defaultValue: PropTypes.array

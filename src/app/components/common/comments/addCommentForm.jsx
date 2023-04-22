@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import API from "../../../api";
+import SelectField from "../form/selectField";
+import TextAreaField from "../form/textAreaField";
+import { validator } from "../../../utils/validator";
 import PropTypes from "prop-types";
-import { validator } from "../../../../utils/validator";
-import api from "../../../../api";
-import SelectField from "../../../common/form/selectField";
-import TextAreaField from "../../../common/form/textAreaField";
 const initialData = { userId: "", content: "" };
 
 const AddCommentForm = ({ onSubmit }) => {
@@ -28,13 +28,14 @@ const AddCommentForm = ({ onSubmit }) => {
             }
         }
     };
+
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
     useEffect(() => {
-        api.users.fetchAll().then(setUsers);
+        API.users.fetchAll().then(setUsers);
     }, []);
     const clearForm = () => {
         setData(initialData);
@@ -55,10 +56,23 @@ const AddCommentForm = ({ onSubmit }) => {
         }));
     return (
         <div>
-            <h2>New Comment</h2>
+            <h2>New comment</h2>
             <form onSubmit={handleSubmit}>
-                <SelectField onChange={handleChange} options={arrayOfUsers} name="userId" value={data.userId} defaultOption="Выберите пользователя" error={errors.userId} />
-                <TextAreaField value={data.content} onChange={handleChange} name="content" label="Сообщение" error={errors.content}/>
+                <SelectField
+                    onChange={handleChange}
+                    options={arrayOfUsers}
+                    name="userId"
+                    value={data.userId}
+                    defaultOption="Выберите пользователя"
+                    error={errors.userId}
+                />
+                <TextAreaField
+                    value={data.content}
+                    onChange={handleChange}
+                    name="content"
+                    label="Сообщение"
+                    error={errors.content}
+                />
                 <div className="d-flex justify-content-end">
                     <button className="btn btn-primary">Опубликовать</button>
                 </div>
@@ -66,7 +80,6 @@ const AddCommentForm = ({ onSubmit }) => {
         </div>
     );
 };
-
 AddCommentForm.propTypes = {
     onSubmit: PropTypes.func
 };

@@ -11,19 +11,24 @@ const TextAreaField = ({ label, name, value, onChange, error }) => {
 
     return (
         <div className="mb-4">
-            <label htmlFor={name}>{label}</label>
+            <label htmlFor={name}> {label}</label>
             <div className="input-group has-validation">
-                <textarea name={name} id={name} value={value} onChange={handleChange} className={getInputClasses()}/>
-                {error && <div className="invalid-feedback">{error}</div>}
+                <textarea
+                    id={name}
+                    name={name}
+                    value={value}
+                    onChange={handleChange}
+                    className={getInputClasses()}
+                />
+
+                {error && <div className="invalid-feedback ">{error}</div>}
             </div>
         </div>
     );
 };
-
 TextAreaField.defaultProps = {
     type: "text"
 };
-
 TextAreaField.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
@@ -32,4 +37,5 @@ TextAreaField.propTypes = {
     onChange: PropTypes.func,
     error: PropTypes.string
 };
+
 export default TextAreaField;
