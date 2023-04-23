@@ -26,7 +26,6 @@ const UserProvider = ({ children }) => {
     async function getUsers() {
         try {
             const { content } = await userService.get();
-            console.log(content);
             setUsers(content);
             setLoading(false);
         } catch (error) {
@@ -36,7 +35,6 @@ const UserProvider = ({ children }) => {
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
-        setLoading(false);
     }
     return (
         <UserContext.Provider value={{ users }}>

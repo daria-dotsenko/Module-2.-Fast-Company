@@ -16,7 +16,6 @@ const UsersListPage = () => {
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 8;
     const { users } = useUser();
-    console.log(users);
     const handleDelete = (userId) => {
         // setUsers(users.filter((user) => user._id !== userId));
         console.log(userId);

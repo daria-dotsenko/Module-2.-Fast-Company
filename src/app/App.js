@@ -6,17 +6,20 @@ import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ProfessionProvider } from "./hooks/useProfession";
 
 function App() {
     return (
         <div>
             <NavBar />
-            <Switch>
-                <Route path="/users/:userId?/:edit?" component={Users} />
-                <Route path="/login/:type?" component={Login} />
-                <Route path="/" exact component={Main} />
-                <Redirect to="/" />
-            </Switch>
+            <ProfessionProvider>
+                <Switch>
+                    <Route path="/users/:userId?/:edit?" component={Users} />
+                    <Route path="/login/:type?" component={Login} />
+                    <Route path="/" exact component={Main} />
+                    <Redirect to="/" />
+                </Switch>
+            </ProfessionProvider>
             <ToastContainer />
         </div>
     );
