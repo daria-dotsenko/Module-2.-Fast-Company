@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
+
 const AuthContext = React.createContext();
 
 export const useAuth = () => {
@@ -7,8 +9,14 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
+    async function signUp({ email, password }) {
+        const key = "AIzaSyAOBtrYKeP0L3WrC6UfimhobtW0y1gYLsE";
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`;
+        const data = await axios.post(url, { email, password, returnSecureToken: true });
+        console.log(data);
+    };
     return (
-        <AuthContext.Provider>
+        <AuthContext.Provider value={{ signUp }}>
             {children}
         </AuthContext.Provider>
     );
