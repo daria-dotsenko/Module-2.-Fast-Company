@@ -22,18 +22,15 @@ const AuthProvider = ({ children }) => {
             const { data } = await httpAuth.post(url, { email, password, returnSecureToken: true });
             setTokens(data);
             await createUser({ _id: data.localId, email, ...rest });
-            console.log(data);
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
-            console.log(code, message);
             if (code === 400) {
                 if (message === "EMAIL_EXISTS") {
                     const errorObject = { email: "Пользователь с таким email уже существует" };
                     throw errorObject;
                 }
             }
-            // throw new Error();
         }
     };
     async function createUser(data) {
