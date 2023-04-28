@@ -13,7 +13,6 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-    console.log(process.env);
     const [error, setError] = useState(null);
     const [currentUser, setUser] = useState({});
     async function signUp({ email, password, ...rest }) {
@@ -28,6 +27,25 @@ const AuthProvider = ({ children }) => {
             if (code === 400) {
                 if (message === "EMAIL_EXISTS") {
                     const errorObject = { email: "Пользователь с таким email уже существует" };
+                    throw errorObject;
+                }
+            }
+        }
+    };
+    async function signIn({ email, password }) {
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_KEY}`;
+        try {
+            const { data } = await httpAuth.post(url, { email, password, returnSecureToken: true });
+            setTokens(data);
+        } catch (error) {
+            errorCatcher(error);
+            const { code, message } = error.response.data.error;
+            if (code === 400) {
+                if (message === "EMAIL_NOT_FOUND") {
+                    const errorObject = { email: "Неправильный email" };
+                    throw errorObject;
+                } else if (message === "INVALID_PASSWORD") {
+                    const errorObject = { password: "Неправильный пароль" };
                     throw errorObject;
                 }
             }
@@ -52,7 +70,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [error]);
     return (
-        <AuthContext.Provider value={{ signUp, currentUser }}>
+        <AuthContext.Provider value={{ signUp, signIn, currentUser }}>
             {children}
         </AuthContext.Provider>
     );
