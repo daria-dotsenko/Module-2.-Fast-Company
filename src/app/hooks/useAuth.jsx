@@ -15,12 +15,15 @@ export const useAuth = () => {
 const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [currentUser, setUser] = useState({});
+    function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
     async function signUp({ email, password, ...rest }) {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`;
         try {
             const { data } = await httpAuth.post(url, { email, password, returnSecureToken: true });
             setTokens(data);
-            await createUser({ _id: data.localId, email, ...rest });
+            await createUser({ _id: data.localId, email, rate: randomInt(1, 5), completedMeetings: randomInt(0, 200), ...rest });
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
