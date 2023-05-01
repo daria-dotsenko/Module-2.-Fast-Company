@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const LoginForm = () => {
     const history = useHistory();
+    console.log(history);
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -61,7 +62,7 @@ const LoginForm = () => {
         if (!isValid) return;
         try {
             await signIn(data);
-            history.push("/");
+            history.push(history.location.state ? history.location.state.from.pathname : "/");
         } catch (error) {
             setErrors(error);
         }
