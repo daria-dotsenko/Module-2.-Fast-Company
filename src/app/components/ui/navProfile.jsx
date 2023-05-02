@@ -11,11 +11,7 @@ const NavProfile = () => {
   return <div className="dropdown" onClick={toggleMenu}>
     <div className="btn dropdown-toggle d-flex align-items-center">
       <div className="me-2">{currentUser.name}</div>
-      <img src={`https://avatars.dicebear.com/api/avataaars/${(
-               Math.random() + 1
-           )
-               .toString(36)
-               .substring(7)}.svg`}
+      <img src={currentUser.image}
            className="img-responsive rounded-circle"
            alt="avatar"
            height="40"
