@@ -4,7 +4,7 @@ import CommentsList, { AddCommentForm } from "../common/comments";
 import { useComments } from "../../hooks/useComments";
 
 const Comments = () => {
-    const { createComment, comments } = useComments();
+    const { createComment, comments, removeComment } = useComments();
     const handleSubmit = (data) => {
         createComment(data);
         // api.comments
@@ -12,6 +12,7 @@ const Comments = () => {
         //     .then((data) => setComments([...comments, data]));
     };
     const handleRemoveComment = (id) => {
+        removeComment(id);
         // api.comments.remove(id).then((id) => {
         //     setComments(comments.filter((x) => x._id !== id));
         // });
