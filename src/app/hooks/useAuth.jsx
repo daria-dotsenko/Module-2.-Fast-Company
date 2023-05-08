@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import localStorageService, { setTokens } from "../../service/localStorage.service";
 import { useHistory } from "react-router-dom";
 
+require("dotenv").config();
+
 export const httpAuth = axios.create({
     baseURL: "https://identitytoolkit.googleapis.com/v1/",
     params: {
