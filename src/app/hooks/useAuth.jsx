@@ -28,6 +28,14 @@ const AuthProvider = ({ children }) => {
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+    async function updateUserData(data) {
+        try {
+            const { content } = await userService.update(data);
+            setUser(content);
+        } catch (error) {
+            errorCatcher(error);
+        }
+    }
     async function signUp({ email, password, ...rest }) {
         const url = `accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`;
         try {
@@ -36,7 +44,7 @@ const AuthProvider = ({ children }) => {
             await createUser({
                 _id: data.localId,
                 email,
-                ate: randomInt(1, 5),
+                rate: randomInt(1, 5),
                 completedMeetings: randomInt(0, 200),
                 image: `https://avatars.dicebear.com/api/avataaars/${(
                 Math.random() + 1
@@ -118,7 +126,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [error]);
     return (
-        <AuthContext.Provider value={{ signUp, signIn, currentUser, logOut }}>
+        <AuthContext.Provider value={{ signUp, signIn, currentUser, logOut, updateUserData }}>
             {!isLoading ? children : "Loading..."}
         </AuthContext.Provider>
     );

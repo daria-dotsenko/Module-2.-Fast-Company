@@ -40,7 +40,7 @@ export const QualitiesProvider = ({ children }) => {
     }
 
     return (
-        <QualitiesContex.Provider value={ { qualities, getQuality } }>
+        <QualitiesContex.Provider value={ { qualities, isLoading, getQuality } }>
             {!isLoading ? children : <h1>Loading...</h1>}
         </QualitiesContex.Provider>
     );
